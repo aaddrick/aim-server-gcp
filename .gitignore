@@ -1,0 +1,13 @@
+# upstream clone, kept for reference only
+/open-oscar-server/
+
+# terraform
+terraform/.terraform/
+terraform/private.auto.tfvars
+terraform/*.tfstate*
+
+# go
+signup/aim-signup
+
+# local claude code state
+/.claude/

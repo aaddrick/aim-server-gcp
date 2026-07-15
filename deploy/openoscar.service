@@ -1,0 +1,24 @@
+[Unit]
+Description=Open OSCAR Server (AIM/ICQ)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=openoscar
+Group=openoscar
+StateDirectory=openoscar
+EnvironmentFile=/etc/openoscar/settings.env
+ExecStart=/opt/openoscar/open_oscar_server
+Restart=on-failure
+RestartSec=5
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/openoscar
+
+[Install]
+WantedBy=multi-user.target

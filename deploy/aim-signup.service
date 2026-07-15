@@ -1,0 +1,32 @@
+[Unit]
+Description=AIM signup / email verification service
+After=network-online.target openoscar.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=aim-signup
+Group=aim-signup
+StateDirectory=aim-signup
+RuntimeDirectory=aim-signup
+EnvironmentFile=/etc/aim-signup/config.env
+
+# Fetch the Resend API key from Secret Manager into the private runtime dir
+# on every start — no key material persists on disk.
+ExecStartPre=/opt/aim-signup/fetch-resend-key.sh /run/aim-signup/resend_key
+Environment=RESEND_API_KEY_FILE=/run/aim-signup/resend_key
+Environment=STATE_PATH=/var/lib/aim-signup/state.json
+
+ExecStart=/opt/aim-signup/aim-signup
+Restart=on-failure
+RestartSec=5
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/aim-signup
+
+[Install]
+WantedBy=multi-user.target

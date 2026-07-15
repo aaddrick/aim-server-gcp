@@ -1,0 +1,6 @@
+# Copy to private.auto.tfvars (gitignored) and fill in. These identify the
+# GCP account rather than the service — still not secrets, just not worth
+# publishing.
+
+project_id  = "my-aim-project"
+alert_email = "you@example.com"

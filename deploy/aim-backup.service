@@ -1,0 +1,11 @@
+[Unit]
+Description=Backup open-oscar-server SQLite database to GCS
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=openoscar
+Group=openoscar
+EnvironmentFile=/etc/aim-backup/config.env
+ExecStart=/opt/aim-signup/backup.sh
